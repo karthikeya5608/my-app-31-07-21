@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head><style>
+    .droptarget {
+      float: center; 
+      width: 100px; 
+      height: 35px;
+      margin: 15px;
+      padding: 10px;
+      border: 1px solid #aaaaaa;
+    }
+    </style>
+    </head>
+    
+    <meta charset="utf-8">
+    <title>adventure</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
+    <script src="p5.play.js"></script>
+    <script src="matter.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+  </head><body>
+    
+    <div class="droptarget">
+      <img draggable="true" src="forestDay.png" id="dragtarget" width="20" height="40"></img>
+    </div>
+    
+    <div class="droptarget"></div>
+    
+    
+    <script>
+    
+    document.addEventListener("dragstart", function(event) {
+      
+      event.dataTransfer.setData("Text", event.target.id);
+      
+      event.target.style.opacity = "0.4";
+    });
+    
+    document.addEventListener("drag", function(event) {
+    });
+    
+    document.addEventListener("dragend", function(event) {
+      event.target.style.opacity = "1";
+    });
+    
+    document.addEventListener("dragenter", function(event) {
+      if ( event.target.className == "droptarget" ) {
+        event.target.style.border = "3px dotted red";
+      }
+    });
+    
+    document.addEventListener("dragover", function(event) {
+      event.preventDefault();
+    });
+    
+    document.addEventListener("dragleave", function(event) {
+      if ( event.target.className == "droptarget" ) {
+        event.target.style.border = "";
+      }
+    });
+    document.addEventListener("drop", function(event) {
+      event.preventDefault();
+      if ( event.target.className == "droptarget" ) {
+        event.target.style.border = "";
+        var data = event.dataTransfer.getData("Text");
+        event.target.appendChild(document.getElementById(data));
+      }
+    });
+    </script>
+    <script src="sketch.js"></script>
+  </body>
+</html>
